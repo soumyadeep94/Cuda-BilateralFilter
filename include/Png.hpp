@@ -1,16 +1,10 @@
-/*
- * Copyright 2023 LUMA Vision Limited
- * Company Number 606427, Ireland
- * All rights reserved
- */
-
 #pragma once
 
 #include "NdVector.hpp"
 
 #include <filesystem>
 
-namespace lv::png
+namespace png
 {
 /**
  * @brief Loads the image at the given @a path.
@@ -32,4 +26,4 @@ namespace lv::png
  */
 void save(const Image& image, const std::filesystem::path& path);
 
-} // namespace lv::png
+} // namespace *png

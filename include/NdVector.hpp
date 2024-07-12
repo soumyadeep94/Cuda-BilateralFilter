@@ -9,9 +9,6 @@
 #include <stdexcept>
 #include <vector>
 
-namespace lv
-{
-
 /**
  * @brief Simple/minimal n-dimensional vector.
  *
@@ -128,5 +125,3 @@ template <typename ElemType, size_t Dim> class NdVector
 };
 
 using Image = NdVector<std::uint8_t, 2>;
-
-} // namespace lv

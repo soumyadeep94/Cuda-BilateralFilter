@@ -1,16 +1,10 @@
-/*
- * Copyright 2023 LUMA Vision Limited
- * Company Number 606427, Ireland
- * All rights reserved
- */
-
 #include "Png.hpp"
 
 #include <fmt/std.h>
 #include <gsl/gsl-lite.hpp>
 #include <png.h>
 
-namespace lv::png
+namespace png
 {
 
 Image load(const std::filesystem::path& path)

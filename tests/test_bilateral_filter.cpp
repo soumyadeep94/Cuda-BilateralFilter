@@ -4,7 +4,7 @@
 #include "BilateralFilter.hpp"
 #include "NdVector.hpp"
 
-using ImageVector = lv::NdVector<float, 2>;
+using ImageVector = NdVector<float, 2>;
 
 constexpr int WIDTH = 1024;
 constexpr int HEIGHT = 1024;

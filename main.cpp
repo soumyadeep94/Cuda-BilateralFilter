@@ -11,12 +11,13 @@
 
 #include "cuda_utils.hpp"
 
-namespace lv
-{
+
 /*Function to process the image data. It takes image as an input, performs a series of transformation and outputs 
 the processed image or the relavant data*/
-void processImage(const Image& inputImage, Image& resultImage, const std::vector<cuda::FilterType>& filterTypes,
-    const std::vector<std::unique_ptr<cuda::FilterParams>>& filterParams, cuda::MemoryMode mode)
+void processImage(const Image& inputImage, Image& resultImage,
+                  const std::vector<cuda::FilterType>& filterTypes,
+                  const std::vector<std::unique_ptr<cuda::FilterParams>>& filterParams,
+                  cuda::MemoryMode mode)
 {
     const auto& [width, height] = inputImage.getSize();
 
@@ -31,8 +32,8 @@ void processImage(const Image& inputImage, Image& resultImage, const std::vector
 
     cuda::FilterPipeline pipeline;
     for (size_t i = 0; i < filterTypes.size(); ++i) {
-        pipeline.addFilter(
-            cuda::FilterFactory::createFilter(filterTypes[i], width, height, *filterParams[i], mode));
+        pipeline.addFilter(cuda::FilterFactory::createFilter(filterTypes[i], width, height,
+                                                             *filterParams[i], mode));
     }
 
     cudaEvent_t start, stop;
@@ -40,7 +41,7 @@ void processImage(const Image& inputImage, Image& resultImage, const std::vector
     cudaEventCreate(&stop);
 
     cudaEventRecord(start, 0);
-    //compute with the applied filter
+    // compute with the applied filter
     pipeline.apply(inputNdVector.getData(), resultNdVector.getData(), width, height);
     cudaEventRecord(stop, 0);
 
@@ -49,7 +50,7 @@ void processImage(const Image& inputImage, Image& resultImage, const std::vector
     cudaEventElapsedTime(&milliseconds, start, stop);
 
     std::cout << "Filter execution time: " << milliseconds << " ms" << std::endl;
- 
+
     // Clean up
     cudaEventDestroy(start);
     cudaEventDestroy(stop);
@@ -96,26 +97,12 @@ void app()
         // Save the result image
         png::save(resultImage, std::filesystem::path{RESOURCE_DIR} / "result.png");
     }
-
-    //{
-    //    std::cout << "Bilateral filter using GLobal memory" << std::endl;
-    //    constexpr cuda::MemoryMode mode =
-    //        cuda::MemoryMode::GLOBAL; // Toggle mode (GLOBAL or SHARED_MEM)
-
-    //    // Process the image using bilateral filter
-    //    processImage(inputImage, resultImage, filterTypes, filterParams, mode);
-
-    //    // Save the result image
-    //    png::save(resultImage, std::filesystem::path{RESOURCE_DIR} / "result_global.png");
-    //}
 }
-
-} // namespace lv
 
 int main()
 {
     try {
-        lv::app();
+        app();
     } catch (const std::exception& ex) {
         fmt::print(stderr, "Error while processing: {}\n", ex.what());
     }

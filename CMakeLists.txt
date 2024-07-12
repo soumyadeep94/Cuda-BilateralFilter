@@ -26,7 +26,7 @@ add_library(CudaFilterLib
 
 )
 
-add_executable(CudaChallenge
+add_executable(CudaMainApp
         main.cpp
         include/NdVector.hpp
         src/Png.cpp
@@ -46,7 +46,7 @@ find_package(gsl-lite CONFIG REQUIRED)
 find_package(PNG CONFIG REQUIRED)
 
 # link all external libraries
-target_link_libraries(CudaChallenge PRIVATE CudaFilterLib Catch2::Catch2 fmt::fmt gsl::gsl-lite PNG::PNG)
+target_link_libraries(CudaMainApp PRIVATE CudaFilterLib Catch2::Catch2 fmt::fmt gsl::gsl-lite PNG::PNG)
 
 # link all external libraries for test executable
 target_link_libraries(test_bilateral_filter PRIVATE
@@ -56,11 +56,11 @@ target_link_libraries(test_bilateral_filter PRIVATE
     gsl::gsl-lite
 )
 
-target_compile_definitions(CudaChallenge PRIVATE RESOURCE_DIR=\"${CMAKE_CURRENT_LIST_DIR}/data\" _USE_MATH_DEFINES)
+target_compile_definitions(CudaMainApp PRIVATE RESOURCE_DIR=\"${CMAKE_CURRENT_LIST_DIR}/data\" _USE_MATH_DEFINES)
 target_compile_definitions(test_bilateral_filter PRIVATE RESOURCE_DIR=\"${CMAKE_CURRENT_LIST_DIR}/data\")
 
 # Include directories
-target_include_directories(CudaChallenge PRIVATE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(CudaMainApp PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 target_include_directories(test_bilateral_filter PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 #Enable testing
