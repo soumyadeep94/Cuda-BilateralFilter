@@ -1,0 +1,9 @@
+[requires]
+catch2/3.3.2
+fmt/10.0.0
+gsl-lite/0.40.0
+libpng/1.6.39
+
+[generators]
+CMakeToolchain
+CMakeDeps

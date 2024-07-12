@@ -1,0 +1,12 @@
+BasedOnStyle: Microsoft
+
+UseTab: Never
+IndentWidth: 4
+AllowShortFunctionsOnASingleLine: InlineOnly
+ColumnLimit: 100
+BreakBeforeBraces: Linux
+PointerAlignment: Left
+
+SortIncludes: true
+IncludeBlocks: Preserve
+
