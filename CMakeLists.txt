@@ -27,7 +27,7 @@ add_library(CudaFilterLib
 )
 
 add_executable(CudaChallenge
-        src/main.cpp
+        main.cpp
         include/NdVector.hpp
         src/Png.cpp
         include/Png.hpp
