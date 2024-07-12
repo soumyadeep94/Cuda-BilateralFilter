@@ -1,7 +1,7 @@
 # CUDA Bilateral Filter
 
 This project implements a bilateral filter using CUDA for efficient image processing. The bilateral filter is used to smooth images while preserving edges, which is particularly useful in various image processing and computer vision applications.
-![bilateral_filter](images/bilFilter.png)
+![bilateral_filter](images/bilFilter.PNG)
 ## Table of Contents
 
 - [Overview](#overview)
