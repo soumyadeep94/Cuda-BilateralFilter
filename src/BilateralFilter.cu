@@ -144,41 +144,6 @@ __global__ void bilateralFilterKernel(const float* input, float* output, const i
 namespace cuda
 {
 
-//void bilateralFilterKernelWrapper(const float* input, float* output, const int width, const int height,
-//                                  float sigmaColor, float sigmaSpace,
-//                                  MemoryMode mode)
-//{
-//    float* d_input = nullptr;
-//    float* d_output = nullptr;
-//    cudaMalloc(&d_input, width * height * sizeof(float));
-//    cudaMalloc(&d_output, width * height * sizeof(float));
-//
-//    cudaMemcpy(d_input, input, width * height * sizeof(float), cudaMemcpyHostToDevice);
-//    // Define block and grid size
-//    dim3 blockSize(BLOCK_SIZE, BLOCK_SIZE);
-//    dim3 gridSize((width + blockSize.x - 1) / blockSize.x,
-//                  (height + blockSize.y - 1) / blockSize.y);
-//
-//    if (mode == cuda::MemoryMode::SHARED_MEM) {
-//        size_t sharedMemSize = (BLOCK_SIZE + 2 * RADIUS + PADDING) *
-//                               (BLOCK_SIZE + 2 * RADIUS + PADDING) * sizeof(float);
-//        // Launch the kernel with shared memory
-//        bilateralFilterKernel<true><<<gridSize, blockSize, sharedMemSize>>>(
-//            const_cast<float*>(input), output, width, height, sigmaColor, sigmaSpace);
-//    } else {
-//        // launch the naive kernel, which use global memory only
-//        bilateralFilterKernel<false><<<gridSize, blockSize>>>(
-//            const_cast<float*>(input), output, width, height, sigmaColor, sigmaSpace);
-//    }
-//
-//    cudaMemcpy(output, d_output, width * height * sizeof(float), cudaMemcpyDeviceToHost);
-//
-//    cudaFree(d_input);
-//    cudaFree(d_output);
-//
-//    CUDA_CHECK(cudaDeviceSynchronize());
-//}
-
 BilateralFilter::BilateralFilter(const int width, const int height, const float sigmaColor,
                                  const float sigmaSpace, MemoryMode mode)
     : m_width(width), m_height(height), m_sigmaColor(sigmaColor), m_sigmaSpace(sigmaSpace),
@@ -188,8 +153,6 @@ BilateralFilter::BilateralFilter(const int width, const int height, const float 
 
     CUDA_CHECK(cudaMalloc(&d_input_, m_width * m_height * sizeof(float)));
     CUDA_CHECK(cudaMalloc(&d_output_, m_width * m_height * sizeof(float)));
-    //CUDA_CHECK(cudaMallocManaged(&d_input_, m_width * m_height * sizeof(float)));
-    //CUDA_CHECK(cudaMallocManaged(&d_output_, m_width * m_height * sizeof(float)));
 }
 
 BilateralFilter::~BilateralFilter() noexcept
@@ -202,7 +165,6 @@ BilateralFilter::~BilateralFilter() noexcept
 void BilateralFilter::apply(const float* input, float* output) const
 {
     // copy input to GPU memory
-    //std::copy(input, input + m_width * m_height, d_input_);
     cudaMemcpy(d_input_, input, m_width * m_height * sizeof(float), cudaMemcpyHostToDevice);
 
     // launch the filter kernel
@@ -222,8 +184,6 @@ void BilateralFilter::setParams(const FilterParams& params)
 
 void BilateralFilter::launchKernel(const float* input, float* output) const
 {
-    /*bilateralFilterKernelWrapper(input, output, m_width, m_height, m_sigmaColor, m_sigmaSpace,
-                                 m_Mode);*/
     dim3 blockSize(BLOCK_SIZE, BLOCK_SIZE);
     dim3 gridSize((m_width + blockSize.x - 1) / blockSize.x,
                   (m_height + blockSize.y - 1) / blockSize.y);

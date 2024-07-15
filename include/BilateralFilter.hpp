@@ -71,22 +71,4 @@ class BilateralFilter : public Filter
     float* d_output_;
     MemoryMode m_Mode{};
 };
-
-/**
- * @brief Wrapper function to launch the bilateral filter kernel.
- *
- * This function serves as a wrapper to launch the appropriate bilateral filter
- * kernel (naive or optimized) based on the specified mode.
- *
- * @param input The input image data.
- * @param output The output image data.
- * @param width The width of the image.
- * @param height The height of the image.
- * @param sigmaColor The standard deviation for the color space.
- * @param sigmaSpace The standard deviation for the coordinate space.
- * @param mode The memory mode of the filter (GLOBAL or SHARED_MEM).
- */
-/* void bilateralFilterKernelWrapper(const float* input, float* output, const int width,
-                                  const int height, const float sigmaColor, const float sigmaSpace,
-                                  cuda::MemoryMode mode);*/
 } // namespace cuda
