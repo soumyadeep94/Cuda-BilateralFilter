@@ -6,9 +6,20 @@
 
 # Ignore Visual Studio directory
 ../.vs/
+.vs/
 
 # Ignore current directory
 ./
 
 #Ignore conan bat files
 *.bat
+
+#Ignore build files
+build/
+
+#Ignore data
+data/
+
+#Ignore out directory
+out/
+
