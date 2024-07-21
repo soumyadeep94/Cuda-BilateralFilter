@@ -1,0 +1,14 @@
+# Ignore all .json files
+*.json
+
+# Ignore all .cmake files
+*.cmake
+
+# Ignore Visual Studio directory
+../.vs/
+
+# Ignore current directory
+./
+
+#Ignore conan bat files
+*.bat
